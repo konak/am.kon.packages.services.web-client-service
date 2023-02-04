@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDE243B6-CA9F-4D2D-9D75-FCE4C68AE881}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.packages.services.web-client-service", "src\am.kon.packages.services.web-client-service\am.kon.packages.services.web-client-service.csproj", "{CA2D387F-AB48-44BF-8E23-61CF2EB90A8C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA2D387F-AB48-44BF-8E23-61CF2EB90A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2D387F-AB48-44BF-8E23-61CF2EB90A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2D387F-AB48-44BF-8E23-61CF2EB90A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2D387F-AB48-44BF-8E23-61CF2EB90A8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53AD2F22-B060-4366-90E3-247CD3764216}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA2D387F-AB48-44BF-8E23-61CF2EB90A8C} = {EDE243B6-CA9F-4D2D-9D75-FCE4C68AE881}
+	EndGlobalSection
+EndGlobal
