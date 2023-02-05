@@ -1,0 +1,30 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .net package publish to nuget
+
+on:
+  push:
+    branches: [ "beta" ]
+  pull_request:
+    branches: [ "beta" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 3.1
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Push
+      run: dotnet nuget push am.kon.packages.services.web-client-service.nupkg --api-key oy2d3r5m7fukgcfvmeba5ieycnd55ymudkz53qgl73czmm
