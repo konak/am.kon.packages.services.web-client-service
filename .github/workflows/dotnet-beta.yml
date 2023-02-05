@@ -27,4 +27,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Push
-      run: dotnet nuget push am.kon.packages.services.web-client-service.nupkg --api-key oy2d3r5m7fukgcfvmeba5ieycnd55ymudkz53qgl73czmm
+      run: dotnet nuget push am.kon.packages.services.web-client-service.nupkg --api-key oy2d3r5m7fukgcfvmeba5ieycnd55ymudkz53qgl73czmm --source https://api.nuget.org/v3/index.json
