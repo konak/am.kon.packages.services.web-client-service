@@ -29,4 +29,4 @@ jobs:
     - name: Pack
       run: dotnet pack --output ./packages --no-build --no-restore
     - name: Push
-      run: dotnet nuget push /home/runner/work/am.kon.packages.services.web-client-service/am.kon.packages.services.web-client-service/packages/am.kon.packages.services.web-client-service.0.1.0-beta1.nupkg --api-key oy2d3r5m7fukgcfvmeba5ieycnd55ymudkz53qgl73czmm --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push /home/runner/work/am.kon.packages.services.web-client-service/am.kon.packages.services.web-client-service/packages/am.kon.packages.services.web-client-service.0.1.0-beta1.nupkg --api-key ${{ secrets.NUGET_PUBLISH_SECRET }} --source https://api.nuget.org/v3/index.json --skip-duplicate
