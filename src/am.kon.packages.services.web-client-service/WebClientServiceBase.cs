@@ -65,7 +65,7 @@ namespace am.kon.packages.services.WebClientService
         /// <param name="dataToSend">data to be send in request</param>
         /// <param name="httpClientName">Name of the configured client to be used for http request invocation</param>
         /// <returns>Object describing invocation result</returns>
-        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string httpClientName = HttpClientNames.Default, Encoding encoding = null)
+        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null)
         {
             if (httpMethod == null)
                 httpMethod = HttpMethod.Get;
@@ -83,6 +83,9 @@ namespace am.kon.packages.services.WebClientService
                     {
                         if (dataToSend != null)
                             requestMessage.Content = requestContent;
+
+                        if (bearerToken != null)
+                            requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(HttpAuthenticationScheme.Bearer, bearerToken);
 
                         using (HttpClient client = _clientFactory.CreateClient(httpClientName))
                         {
