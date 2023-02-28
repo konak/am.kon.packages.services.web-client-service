@@ -70,9 +70,6 @@ namespace am.kon.packages.services.WebClientService
             if (httpMethod == null)
                 httpMethod = HttpMethod.Get;
 
-            if (encoding == null)
-                encoding = Encoding.UTF8;
-
             RequestInvocationResult<TData> result = new RequestInvocationResult<TData>();
 
             try
@@ -93,7 +90,6 @@ namespace am.kon.packages.services.WebClientService
                             {
                                 if (resp.IsSuccessStatusCode)
                                 {
-                                    //result.Data = await resp.Content.ReadAsStringAsync();
                                     result.Data = await ReadDataAsync(resp.Content);
                                     result.Result = RequestInvocationResultTypes.Ok;
                                 }
