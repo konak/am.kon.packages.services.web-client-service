@@ -65,13 +65,10 @@ namespace am.kon.packages.services.WebClientService
         /// <param name="dataToSend">data to be send in request</param>
         /// <param name="httpClientName">Name of the configured client to be used for http request invocation</param>
         /// <returns>Object describing invocation result</returns>
-        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string httpClientName = HttpClientNames.Default, Encoding encoding = null)
+        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null)
         {
             if (httpMethod == null)
                 httpMethod = HttpMethod.Get;
-
-            if (encoding == null)
-                encoding = Encoding.UTF8;
 
             RequestInvocationResult<TData> result = new RequestInvocationResult<TData>();
 
@@ -84,13 +81,15 @@ namespace am.kon.packages.services.WebClientService
                         if (dataToSend != null)
                             requestMessage.Content = requestContent;
 
+                        if (bearerToken != null)
+                            requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(HttpAuthenticationScheme.Bearer, bearerToken);
+
                         using (HttpClient client = _clientFactory.CreateClient(httpClientName))
                         {
                             using (HttpResponseMessage resp = await client.SendAsync(requestMessage, _cancellationToken))
                             {
                                 if (resp.IsSuccessStatusCode)
                                 {
-                                    //result.Data = await resp.Content.ReadAsStringAsync();
                                     result.Data = await ReadDataAsync(resp.Content);
                                     result.Result = RequestInvocationResultTypes.Ok;
                                 }
