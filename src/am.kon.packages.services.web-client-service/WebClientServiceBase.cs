@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace am.kon.packages.services.WebClientService
         /// <param name="dataToSend">data to be send in request</param>
         /// <param name="httpClientName">Name of the configured client to be used for http request invocation</param>
         /// <returns>Object describing invocation result</returns>
-        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null)
+        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null, string[] acceptEncodings = null)
         {
             if (httpMethod == null)
                 httpMethod = HttpMethod.Get;
@@ -83,6 +84,10 @@ namespace am.kon.packages.services.WebClientService
 
                         if (bearerToken != null)
                             requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(HttpAuthenticationScheme.Bearer, bearerToken);
+
+                        if (acceptEncodings != null)
+                            foreach (string acceptEncoding in acceptEncodings)
+                                requestMessage.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue(acceptEncoding));
 
                         using (HttpClient client = _clientFactory.CreateClient(httpClientName))
                         {
