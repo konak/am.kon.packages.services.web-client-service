@@ -8,12 +8,12 @@ using System.Xml.Linq;
 namespace am.kon.packages.services.WebClientService
 {
     /// <summary>
-    /// Service to be used for requests to web endpoints
+    /// Service to be used for requests to web endpoints returning string data (HTML pages, Json objects, XML documents, etc.)
     /// </summary>
-	public class WebClientService : WebClientServiceBase<string>
+	public class WebClientStringDataService : WebClientServiceBase<string>
     {
-		public WebClientService(
-            ILogger<WebClientService> logger,
+		public WebClientStringDataService(
+            ILogger<WebClientStringDataService> logger,
             IConfiguration configuration,
             IHttpClientFactory clientFactory
             ) : base(logger, configuration, clientFactory)
