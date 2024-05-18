@@ -5,9 +5,9 @@
     <RootNamespace>am.kon.packages.services.WebClientService</RootNamespace>
     <Nullable>disable</Nullable>
     <PackageId>am.kon.packages.services.web-client-service</PackageId>
-    <PackageVersion>0.1.1.0</PackageVersion>
+    <PackageVersion>0.1.1.1</PackageVersion>
     <Authors>konakov sergey</Authors>
-    <Description>Web client component to be used as a service with dependency injection in .net core applications implementing functionality to interact with web services. Based on IHttpClientFactory.</Description>
+    <Description>The WebClientService package provides a robust and flexible web client component designed to be used as a service within .NET Core applications. It leverages the power of IHttpClientFactory to facilitate efficient and scalable interactions with web services. This package supports dependency injection, making it easy to integrate into your existing .NET Core applications.</Description>
     <RepositoryUrl>https://dev.azure.com/1662nd/Staking%20Infrastructure/_git/flow.packages.services.api-client-service</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>IHttpClientFactory web http client</PackageTags>
@@ -26,8 +26,5 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
   </ItemGroup>
 </Project>
