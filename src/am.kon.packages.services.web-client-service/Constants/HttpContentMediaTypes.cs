@@ -2,11 +2,26 @@
 namespace am.kon.packages.services.WebClientService.Constants
 {
     /// <summary>
-    /// Class of media type constants
+    /// Enums of media types.
     /// </summary>
-    public static class HttpContentMediaTypes
+    public enum HttpContentMediaTypes
     {
-        public const string ApplicationJson = "application/json";
+        None,
+        TextPlain,
+        TextHtml,
+        TextCss,
+        ApplicationJson,
+        ApplicationXml,
+        ApplicationFormUrlEncoded,
+        ApplicationOctetStream,
+        MultipartFormData,
+        ImagePng,
+        ImageJpeg,
+        ImageGif,
+        AudioMpeg,
+        AudioOgg,
+        VideoMp4,
+        VideoOgg
     }
 }
 
