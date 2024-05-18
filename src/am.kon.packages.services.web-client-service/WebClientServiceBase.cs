@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using am.kon.packages.services.WebClientService.Constants;
+using am.kon.packages.services.WebClientService.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace am.kon.packages.services.WebClientService
 {
     /// <summary>
-    /// Abstract base class for services to be used for requests to web endpoints
+    /// Abstract base class for services to be used for requests to web endpoints.
     /// </summary>
 	public abstract class WebClientServiceBase<TData>
 	{
@@ -39,18 +41,18 @@ namespace am.kon.packages.services.WebClientService
         }
 
         /// <summary>
-        /// Start service
+        /// Start the service.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A task representing the start operation.</returns>
         public Task Start()
         {
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Stop Service
+        /// Stop the service.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A task representing the stop operation.</returns>
         public Task Stop()
         {
             _cancellationTokenSource.Cancel();
@@ -59,14 +61,18 @@ namespace am.kon.packages.services.WebClientService
         }
 
         /// <summary>
-        /// Invoke http request and return resulting data
+        /// Invoke an HTTP request and return the resulting data.
         /// </summary>
-        /// <param name="requestUri">URI to make request to</param>
-        /// <param name="httpMethod">Http request method to be used during invocation</param>
-        /// <param name="dataToSend">data to be send in request</param>
-        /// <param name="httpClientName">Name of the configured client to be used for http request invocation</param>
-        /// <returns>Object describing invocation result</returns>
-        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string metiaType = HttpContentMediaTypes.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null, string[] acceptEncodings = null)
+        /// <param name="requestUri">The URI to make the request to.</param>
+        /// <param name="httpMethod">The HTTP request method to be used during invocation. Default is GET.</param>
+        /// <param name="dataToSend">The data to be sent in the request.</param>
+        /// <param name="mediaType">The media type of the request content. Default is application/json.</param>
+        /// <param name="bearerToken">The bearer token for authorization.</param>
+        /// <param name="httpClientName">The name of the configured client to be used for the HTTP request invocation.</param>
+        /// <param name="encoding">The encoding of the request content. Default is UTF-8.</param>
+        /// <param name="acceptEncodings">List of accepted encodings.</param>
+        /// <returns>An object describing the invocation result.</returns>
+        public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string mediaType = HttpContentMediaTypesConstants.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null, string[] acceptEncodings = null)
         {
             if (httpMethod == null)
                 httpMethod = HttpMethod.Get;
@@ -75,7 +81,7 @@ namespace am.kon.packages.services.WebClientService
 
             try
             {
-                using (StringContent requestContent = new StringContent(dataToSend == null ? string.Empty : dataToSend, encoding, metiaType))
+                using (StringContent requestContent = new StringContent(dataToSend == null ? string.Empty : dataToSend, encoding, mediaType))
                 {
                     using (HttpRequestMessage requestMessage = new HttpRequestMessage(httpMethod, requestUri))
                     {
@@ -103,6 +109,8 @@ namespace am.kon.packages.services.WebClientService
                                     result.Result = RequestInvocationResultTypes.ResponseError;
                                     result.Message = $"Status code: {resp.StatusCode} Page Data: {await resp.Content.ReadAsStringAsync()}";
                                 }
+                                
+                                resp.Headers.ToWebClientResponseHeaders(result.Headers);
                             }
                         }
                     }
@@ -117,6 +125,11 @@ namespace am.kon.packages.services.WebClientService
             return result;
         }
 
+        /// <summary>
+        /// Reads data from the HTTP content.
+        /// </summary>
+        /// <param name="content">The HTTP content.</param>
+        /// <returns>The data read from the content.</returns>
         protected abstract Task<TData> ReadDataAsync(HttpContent content);
     }
 }

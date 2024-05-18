@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace am.kon.packages.services.WebClientService
 {
     /// <summary>
-    /// Service to be used for requests to web endpoints returning stream data
+    /// Service to be used for requests to web endpoints returning stream data.
     /// </summary>
 	public class WebClientStreamDataService : WebClientServiceBase<Stream>
     {

@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace am.kon.packages.services.WebClientService
 {
     /// <summary>
-    /// Service to be used for requests to web endpoints returning string data (HTML pages, Json objects, XML documents, etc.)
+    /// Service to be used for requests to web endpoints returning string data (HTML pages, JSON objects, XML documents, etc.).
     /// </summary>
 	public class WebClientStringDataService : WebClientServiceBase<string>
     {
