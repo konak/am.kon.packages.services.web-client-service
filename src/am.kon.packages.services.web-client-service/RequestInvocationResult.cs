@@ -32,12 +32,15 @@ namespace am.kon.packages.services.WebClientService
         /// </summary>
         public WebClientResponseHeaders Headers { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the RequestInvocationResult class with default values.
+        /// </summary>
         public RequestInvocationResult()
         {
             Result = RequestInvocationResultTypes.Unknown;
-            Data = default(TData);
+            Data = default;
             Message = string.Empty;
-            Headers = new WebClientResponseHeaders();
+            Headers = new WebClientResponseHeaders() ?? throw new ArgumentNullException(nameof(Headers));
         }
     }
 }

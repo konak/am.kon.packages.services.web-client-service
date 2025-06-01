@@ -74,6 +74,9 @@ namespace am.kon.packages.services.WebClientService
         /// <returns>An object describing the invocation result.</returns>
         public async Task<RequestInvocationResult<TData>> InvokeRequest(Uri requestUri, HttpMethod httpMethod = null, string dataToSend = null, string mediaType = HttpContentMediaTypesConstants.ApplicationJson, string bearerToken = null, string httpClientName = HttpClientNames.Default, Encoding encoding = null, string[] acceptEncodings = null)
         {
+            if (requestUri == null)
+                throw new ArgumentNullException(nameof(requestUri));
+            
             if (httpMethod == null)
                 httpMethod = HttpMethod.Get;
 
@@ -81,7 +84,7 @@ namespace am.kon.packages.services.WebClientService
 
             try
             {
-                using (StringContent requestContent = new StringContent(dataToSend == null ? string.Empty : dataToSend, encoding, mediaType))
+                using (StringContent requestContent = new StringContent(dataToSend ?? string.Empty, encoding, mediaType))
                 {
                     using (HttpRequestMessage requestMessage = new HttpRequestMessage(httpMethod, requestUri))
                     {
